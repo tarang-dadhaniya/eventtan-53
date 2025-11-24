@@ -295,7 +295,9 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                         schedule.speakerName
                       }}</span>
                     </div>
-                    <div class="px-4 py-5 flex items-center justify-center gap-2">
+                    <div
+                      class="px-4 py-5 flex items-center justify-center gap-2"
+                    >
                       <button
                         (click)="editSchedule(schedule)"
                         class="w-10 h-10 bg-[#009FD8] hover:bg-[#0385b5] rounded-full flex items-center justify-center transition-colors"
@@ -401,7 +403,7 @@ export class EventOverviewComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private scheduleService: ScheduleService
+    private scheduleService: ScheduleService,
   ) {}
 
   ngOnInit() {
@@ -437,7 +439,10 @@ export class EventOverviewComponent implements OnInit {
 
   onScheduleSave(scheduleData: any) {
     if (this.editMode && this.editingSchedule) {
-      this.scheduleService.updateSchedule(this.editingSchedule.id, scheduleData);
+      this.scheduleService.updateSchedule(
+        this.editingSchedule.id,
+        scheduleData,
+      );
     } else {
       this.scheduleService.addSchedule(this.eventId, scheduleData);
     }

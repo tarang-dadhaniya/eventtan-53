@@ -22,7 +22,7 @@ export interface Schedule {
 export class ScheduleService {
   private readonly STORAGE_KEY = "eventtan_schedules";
   private schedulesSubject = new BehaviorSubject<Schedule[]>(
-    this.loadFromStorage()
+    this.loadFromStorage(),
   );
 
   schedules$: Observable<Schedule[]> = this.schedulesSubject.asObservable();
@@ -44,13 +44,13 @@ export class ScheduleService {
 
   getSchedulesByEvent(eventId: string): Schedule[] {
     return this.getSchedules().filter(
-      (schedule) => schedule.eventId === eventId
+      (schedule) => schedule.eventId === eventId,
     );
   }
 
   addSchedule(
     eventId: string,
-    schedule: Omit<Schedule, "id" | "eventId">
+    schedule: Omit<Schedule, "id" | "eventId">,
   ): Schedule {
     const newSchedule: Schedule = {
       ...schedule,
@@ -84,7 +84,7 @@ export class ScheduleService {
 
   deleteSchedule(id: string): void {
     const schedules = this.getSchedules().filter(
-      (schedule) => schedule.id !== id
+      (schedule) => schedule.id !== id,
     );
     this.schedulesSubject.next(schedules);
     this.saveToStorage(schedules);
