@@ -2100,6 +2100,7 @@ export class EventSetupComponent implements OnInit {
   eventId: string = "";
   schedules: Schedule[] = [];
   exhibitors: Exhibitor[] = [];
+  searchQuery: string = "";
   editMode = false;
   editModeExhibitor = false;
   editingSchedule: any = null;
