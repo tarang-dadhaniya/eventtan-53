@@ -11,6 +11,7 @@ import {
 import { AddScheduleModalComponent } from "../components/add-schedule-modal";
 import { AddExhibitorModalComponent } from "../components/add-exhibitor-modal";
 import { ConfirmDeleteModalComponent } from "../components/confirm-delete-modal";
+import { AboutDetailModalComponent } from "../components/about-detail-modal";
 import { ScheduleService, Schedule } from "../services/schedule.service";
 import { ExhibitorService, Exhibitor } from "../services/exhibitor.service";
 
@@ -30,6 +31,7 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
     AddScheduleModalComponent,
     AddExhibitorModalComponent,
     ConfirmDeleteModalComponent,
+    AboutDetailModalComponent,
   ],
   template: `
     <div class="flex h-screen overflow-hidden bg-main-bg">
@@ -1962,11 +1964,97 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                   </div>
 
                   <!-- Other Features Content (Placeholder) -->
+                  <!-- About Feature Content -->
+                  <div
+                    *ngIf="
+                      activeFeatures.length > 0 &&
+                      activeFeatures[selectedFeatureIndex] === 'about'
+                    "
+                    class="bg-white border border-[#CED4DA] rounded-md"
+                  >
+                    <!-- Header -->
+                    <div
+                      class="px-6 md:px-8 py-6 border-b border-[#CED4DA] flex items-center justify-between"
+                    >
+                      <h2
+                        class="text-xl md:text-2xl font-medium text-[#686868]"
+                      >
+                        About {{ eventName || "Event" }}
+                      </h2>
+                      <button
+                        (click)="editAboutContent = true"
+                        class="px-4 md:px-6 py-2 bg-[#049AD0] hover:bg-[#0385b5] text-white rounded font-semibold transition-colors flex items-center gap-2 whitespace-nowrap"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M13.7432 3.76582C14.0231 4.01076 14.0485 4.43749 13.7995 4.71384L6.79025 12.4937C6.53996 12.7715 6.11021 12.7892 5.83796 12.5329L1.78194 8.7145C1.529 8.47637 1.50478 8.07957 1.7218 7.8083C1.96127 7.50897 2.40721 7.46777 2.6922 7.7241L5.83913 10.5547C6.11261 10.8007 6.53366 10.7787 6.78005 10.5056L12.8091 3.82096C13.053 3.55046 13.4691 3.52594 13.7432 3.76582Z"
+                            fill="white"
+                          />
+                        </svg>
+                        Edit Content
+                      </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="px-6 md:px-8 py-6 space-y-6">
+                      <p
+                        class="text-sm md:text-base text-[#353846] leading-6 md:leading-7"
+                      >
+                        After the rousing success of the 2021 edition, the
+                        expectations from ENGIMACH 2023 have also risen. India
+                        is the only large economy expected to grow significantly
+                        in the coming years. India is also fast emerging as a
+                        preferred manufacturing base in a world seeking reliable
+                        supply chains. On the other hand, Indian industry seeks
+                        more foreign investments, technology, exports and
+                        domestic demand. In this context, ENGIMACH 2023 is
+                        expected to be a major catalyst of economic growth and
+                        generate significant and lasting business outcomes.
+                      </p>
+                      <p
+                        class="text-sm md:text-base text-[#353846] leading-6 md:leading-7"
+                      >
+                        After the rousing success of the 2021 edition, the
+                        expectations from ENGIMACH 2023 have also risen. India
+                        is the only large economy expected to grow significantly
+                        in the coming years. India is also fast emerging as a
+                        preferred manufacturing base in a world seeking reliable
+                        supply chains. On the other hand, Indian industry seeks
+                        more foreign investments, technology, exports and
+                        domestic demand. In this context, ENGIMACH 2023 is
+                        expected to be a major catalyst of economic growth and
+                        generate significant and lasting business outcomes.
+                      </p>
+                      <p
+                        class="text-sm md:text-base text-[#353846] leading-6 md:leading-7"
+                      >
+                        After the rousing success of the 2021 edition, the
+                        expectations from ENGIMACH 2023 have also risen. India
+                        is the only large economy expected to grow significantly
+                        in the coming years. India is also fast emerging as a
+                        preferred manufacturing base in a world seeking reliable
+                        supply chains. On the other hand, Indian industry seeks
+                        more foreign investments, technology, exports and
+                        domestic demand. In this context, ENGIMACH 2023 is
+                        expected to be a major catalyst of economic growth and
+                        generate significant and lasting business outcomes.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Other Features Placeholder -->
                   <div
                     *ngIf="
                       activeFeatures.length > 0 &&
                       activeFeatures[selectedFeatureIndex] !== 'schedule' &&
-                      activeFeatures[selectedFeatureIndex] !== 'exhibitor'
+                      activeFeatures[selectedFeatureIndex] !== 'exhibitor' &&
+                      activeFeatures[selectedFeatureIndex] !== 'about'
                     "
                     class="flex flex-col items-center justify-center py-16 text-center"
                   >
@@ -2100,6 +2188,13 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
       (confirm)="confirmDelete()"
       (cancel)="closeDeleteModal()"
     ></app-confirm-delete-modal>
+
+    <!-- About Detail Modal -->
+    <app-about-detail-modal
+      [isOpen]="editAboutContent"
+      (close)="editAboutContent = false"
+      (save)="onAboutSave($event)"
+    ></app-about-detail-modal>
   `,
   styles: [
     `
@@ -2147,6 +2242,7 @@ export class EventSetupComponent implements OnInit {
 
   isScheduleModalOpen = false;
   isExhibitorModalOpen = false;
+  editAboutContent = false;
   eventId: string = "";
   schedules: Schedule[] = [];
   exhibitors: Exhibitor[] = [];
@@ -2686,6 +2782,11 @@ export class EventSetupComponent implements OnInit {
     }
     this.loadExhibitors();
     this.closeExhibitorModal();
+  }
+
+  onAboutSave(aboutData: any) {
+    console.log("About content saved:", aboutData);
+    this.editAboutContent = false;
   }
 
   loadExhibitors() {
