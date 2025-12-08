@@ -3197,6 +3197,7 @@ export class EventSetupComponent implements OnInit {
     "information",
     "speakers",
     "sponsors",
+    "social-media",
   ];
   draggedFeatureId: string | null = null;
   isDragOverSelected = false;
