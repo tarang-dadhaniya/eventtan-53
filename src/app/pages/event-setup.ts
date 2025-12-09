@@ -2912,6 +2912,24 @@ const EVENT_OVERVIEW_ICON = `<svg width="22" height="22" viewBox="0 0 22 22" fil
                             </div>
                             <div class="flex items-center justify-center gap-2">
                               <button
+                                (click)="editSocialMedia(item)"
+                                class="w-10 h-10 rounded-full bg-[#009FD8] hover:bg-[#0385b5] flex items-center justify-center transition-colors"
+                                aria-label="Edit"
+                              >
+                                <svg
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 20 20"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M14.5821 5.41437L14.5863 5.40997C14.8575 5.13878 15.2997 5.13878 15.5709 5.40997C15.8477 5.68676 15.8477 6.13428 15.5709 6.41107L8.99244 12.9896C8.96863 13.0134 8.94185 13.0345 8.91358 13.0536L6.39476 14.7555C6.17632 14.8885 5.96879 14.6809 6.1013 14.4625L7.80321 11.9437C7.82237 11.9154 7.84324 11.8886 7.86711 11.8648L14.5821 5.41437ZM15.6776 4.31382C15.1778 3.81406 14.3489 3.81406 13.8491 4.31382L1.47227 16.6906C1.22352 16.9394 1.07422 17.2762 1.07422 17.6266V18.9922C1.07422 19.5449 1.51898 19.9896 2.07168 19.9896H3.43733C3.78768 19.9896 4.12456 19.8403 4.37331 19.5916L16.7501 7.21477C17.2499 6.71501 17.6875 6.10449 17.6875 5.31582C17.6875 4.47227 17.1777 3.81382 16.5567 3.31406L15.6776 4.31382Z"
+                                    fill="white"
+                                  />
+                                </svg>
+                              </button>
+                              <button
                                 (click)="deleteSocialMedia(item.id)"
                                 class="w-10 h-10 rounded-full bg-[#BF0505] hover:bg-[#a00404] flex items-center justify-center transition-colors"
                                 aria-label="Delete"
